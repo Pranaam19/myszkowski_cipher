@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Myszkowski Cipher</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Myszkowski Cipher</h1>
+        <p class="description">
+            The Myszkowski Cipher is a transposition cipher similar to the Incomplete Columnar Cipher but with 
+            a unique handling of repeated letters in the key. It was invented by Émile Victor Théodore Myszkowski.
+        </p>
+        
+        <div class="cipher-form">
+            <div class="form-group">
+                <label for="key">Key:</label>
+                <input type="text" id="key" placeholder="Enter your key" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="text">Text:</label>
+                <textarea id="text" placeholder="Enter text to encrypt/decrypt" required></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label>Mode:</label>
+                <div class="radio-group">
+                    <input type="radio" id="encrypt" name="mode" value="encrypt" checked>
+                    <label for="encrypt">Encrypt</label>
+                    
+                    <input type="radio" id="decrypt" name="mode" value="decrypt">
+                    <label for="decrypt">Decrypt</label>
+                </div>
+            </div>
+            
+            <button id="process-btn">Process</button>
+            
+            <div class="form-group result-group">
+                <label for="result">Result:</label>
+                <textarea id="result" readonly></textarea>
+                <button id="copy-btn">Copy</button>
+            </div>
+        </div>
+        
+        <div class="how-it-works">
+            <h2>How It Works</h2>
+            <p>
+                The Myszkowski Cipher works by arranging the plaintext in a grid under the key, 
+                then reading off the columns in the order determined by the alphabetical order of the key letters. 
+                The unique feature is that columns with identical key letters are read together.
+            </p>
+            <h3>Example:</h3>
+            <p>Key: <code>TOMATO</code></p>
+            <p>Plaintext: <code>HELLO WORLD</code></p>
+            <p>Grid:</p>
+            <pre>
+  T O M A T O
+  5 3 2 1 5 3
+  ———————————
+  H E L L O W
+  O R L D _ _
+            </pre>
+            <p>The numbers represent the order in which the columns are read.</p>
+            <p>Reading by column order: <code>LLDHEORWLO_</code></p>
+        </div>
+    </div>
+    
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
