@@ -46,29 +46,30 @@ class MyszkowskiCipher:
         """
         # Remove spaces and convert to uppercase for simplicity
         plaintext = plaintext.upper().replace(" ", "")
-        
-        # Calculate the number of rows needed
+    
         num_columns = len(self.key)
         num_rows = (len(plaintext) + num_columns - 1) // num_columns
-        
-        # Create the matrix and fill it with the plaintext
+    
+    # Create the matrix and fill it with the plaintext
         matrix = [[''] * num_columns for _ in range(num_rows)]
-        
-        # Fill the matrix with the plaintext
-        for i, char in enumerate(plaintext):
+    
+        for i in range(num_rows * num_columns):
             row = i // num_columns
             col = i % num_columns
-            matrix[row][col] = char
-        
-        # Read the ciphertext according to the column order
+            if i < len(plaintext):
+                matrix[row][col] = plaintext[i]
+            else:
+                matrix[row][col] = 'X'  # Fill remaining cells with 'X'
+    
+    # Read the ciphertext according to the column order
         ciphertext = ""
         for positions in self.column_order:
-            for position in positions:  # Process columns with the same letter together
+            for position in positions:
                 for row in range(num_rows):
-                    if position < len(matrix[row]) and row * num_columns + position < len(plaintext):
-                        ciphertext += matrix[row][position]
-        
+                    ciphertext += matrix[row][position]
+    
         return ciphertext
+
     
     def decrypt(self, ciphertext):
         """
